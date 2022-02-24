@@ -13,10 +13,10 @@
     <script>
         const loadImagePromise = function(src){
             return new Promise(function(resolve, reject){
+                // 通过resolve将成功状态抛出到外面处理
                 loadImage(src, function (err, image) {
                     if(err){
-                        reject(err);
-                        return;
+                        return reject(err);
                     }
                     resolve(image);
                 });

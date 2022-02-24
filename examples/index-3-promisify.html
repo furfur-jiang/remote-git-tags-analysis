@@ -12,6 +12,7 @@
     <script src="./loadImage.js"></script>
     <script>
         function promisify(original){
+            //拆除loadImage这个特定的函数，使其更有通用性，通过参数传入目标函数。
             function fn(...args){
                 return new Promise((resolve, reject) => {
                     args.push((err, ...values) => {
@@ -20,8 +21,10 @@
                         }
                         resolve(values);
                     });
+                    console.log(this)
                     // original.apply(this, args);
-                    Reflect.apply(original, this, args);
+                    original(...args)
+                    // Reflect.apply(original, this, args);
                 });
             }
             return fn;
